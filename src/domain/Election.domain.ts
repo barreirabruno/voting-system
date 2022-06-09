@@ -1,6 +1,13 @@
 import { randomUUID } from 'crypto'
 import { ElectionStatusEnum } from './ElectionStatusEnum.domain';
 
+type ElectionData = {
+  electionStatus?: ElectionStatusEnum
+  electionTitleParam: string
+  startDateElectionParam: Date
+  endDateElectionParam: Date
+}
+
 export default class Election {
   id: string;
   status: string;
@@ -9,12 +16,12 @@ export default class Election {
   end: Date;
   createdAt: Date;
 
-  constructor( electionStatus: ElectionStatusEnum, electionTitleParam: string, startDateElectionParam: Date, endDateElectionParam: Date) {
+  constructor( electionDataParams: ElectionData ) {
     this.id = randomUUID();
-    this.status = ElectionStatusEnum.CREATED ?? electionStatus;
-    this.title = electionTitleParam;
-    this.start = startDateElectionParam;
-    this.end = endDateElectionParam;
+    this.status = ElectionStatusEnum.CREATED ?? electionDataParams.electionStatus;
+    this.title = electionDataParams.electionTitleParam;
+    this.start = electionDataParams.startDateElectionParam;
+    this.end = electionDataParams.endDateElectionParam;
     this.createdAt = new Date(Date.now());
   } 
 

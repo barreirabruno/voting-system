@@ -9,14 +9,14 @@ export default class Election {
   end: Date;
   createdAt: Date;
 
-  constructor(electionTitleParam: string, startDateElectionParam: Date, endDateElectionParam: Date) {
+  constructor( electionStatus: ElectionStatusEnum, electionTitleParam: string, startDateElectionParam: Date, endDateElectionParam: Date) {
     this.id = randomUUID();
-    this.status = ElectionStatusEnum.CREATED;
+    this.status = ElectionStatusEnum.CREATED ?? electionStatus;
     this.title = electionTitleParam;
     this.start = startDateElectionParam;
     this.end = endDateElectionParam;
     this.createdAt = new Date(Date.now());
-  }
+  } 
 
   getId(): string {
     return this.id

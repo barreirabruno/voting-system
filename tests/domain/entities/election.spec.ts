@@ -1,5 +1,5 @@
-import Election from "@/domain/Election.domain";
-import { ElectionStatusEnum } from "@/domain/ElectionStatusEnum.domain";
+import Election from "@/domain/entities/Election.domain";
+import { ElectionStatusEnum } from "@/domain/entities";
 
 const electionDataInput = {
   electionStatus: ElectionStatusEnum.CREATED,

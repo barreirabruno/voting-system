@@ -10,7 +10,7 @@ type ElectionData = {
 
 export default class Election {
   id: string;
-  status: string;
+  status: ElectionStatusEnum;
   title: string
   start: Date;
   end: Date;

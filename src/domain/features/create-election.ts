@@ -1,15 +1,22 @@
+import { ElectionStatusEnum } from "../entities"
+
 export interface CreateElectionInterface {
   perform: (params: CreateElection.Input) => Promise<CreateElection.Output>
 }
 
 export namespace CreateElection {
   export type Input = {
-    status: boolean,
-    title: string,
-    start: Date,
-    end: Date
+    electionStatus: ElectionStatusEnum
+    electionTitleParam: string
+    startDateElectionParam: Date
+    endDateElectionParam: Date
   }
   export type Output = {
-     electionId: string
+    id: string,
+    status: ElectionStatusEnum,
+    title: string,
+    start: Date,
+    end: Date,
+    createdAt: Date
   }
 }

@@ -1,28 +1,6 @@
-import { CreateElection, CreateElectionInterface } from "@/domain/features/create-election"
-import { SaveNewElectionRepoData, SaveNewElectionRepository } from "@/data/contracts/repos/election"
-import Election from "@/domain/entities/Election.domain"
+import { ElectionService } from "@/data/services/election.service";
 import { ElectionStatusEnum } from "@/domain/entities"
-
-class ElectionService implements CreateElectionInterface {
-  constructor(
-    private readonly electionRepo: SaveNewElectionRepository
-  ) {}
-
-  async perform (params: CreateElection.Input): Promise<CreateElection.Output> {
-    return await this.electionRepo.save(params)
-  }
-}
-
-class DatabaseElectionRepository implements SaveNewElectionRepository {
-
-  private electionsPersistence: Election[] = []
-
-  async save (input: SaveNewElectionRepoData.Input): Promise<SaveNewElectionRepoData.Output> {
-    const electionEntity = new Election(input)
-    this.electionsPersistence.push(electionEntity);
-    return electionEntity
-  }
-}
+import { DatabaseElectionRepository } from "@/infra/database/repos/database-election-repo";
 
 describe('Election repository', () => {
   let repository: DatabaseElectionRepository;

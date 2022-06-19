@@ -1,5 +1,4 @@
 import { ElectionService } from "@/data/services/election.service";
-import { ElectionStatusEnum } from "@/domain/entities";
 import { HttpResponse, ok } from "../helpers/http";
 import { Controller } from "./controller";
 

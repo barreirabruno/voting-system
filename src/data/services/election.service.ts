@@ -1,9 +1,9 @@
 import { CreateElection, CreateElectionInterface } from "@/domain/features/create-election";
-import { SaveNewElectionRepository } from "../contracts/repos/election";
+import { DatabaseElectionRepositoryInterface } from "../contracts/repos/election";
 
 export class ElectionService implements CreateElectionInterface {
   constructor(
-    private readonly electionRepo: SaveNewElectionRepository
+    private readonly electionRepo: DatabaseElectionRepositoryInterface
   ) {}
 
   async perform (params: CreateElection.Input): Promise<CreateElection.Output> {

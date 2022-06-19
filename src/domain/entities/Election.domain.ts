@@ -5,7 +5,7 @@ import { addDaystoDate } from './utils/date-plus-five-days';
 type ElectionData = {
   electionStatus?: ElectionStatusEnum
   electionTitleParam: string
-  startDateElectionParam?: Date
+  startDateElectionParam?:  Date
   endDateElectionParam?: Date
 }
 
@@ -21,8 +21,8 @@ export default class Election {
     this.id = randomUUID();
     this.status = electionDataParams.electionStatus ?? ElectionStatusEnum.CREATED;
     this.title = electionDataParams.electionTitleParam;
-    this.start = electionDataParams.startDateElectionParam ?? new Date(Date.now());
-    this.end = electionDataParams.endDateElectionParam ?? addDaystoDate(5, new Date());
+    this.start = new Date(electionDataParams.startDateElectionParam ?? new Date());
+    this.end = new Date(electionDataParams.endDateElectionParam ?? addDaystoDate(5, new Date()));
     this.createdAt = new Date(Date.now());
   }
 }

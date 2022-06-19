@@ -19,6 +19,25 @@ describe("Election controller", () => {
     jest.clearAllMocks()
   })
 
+  it("should call ElectionService with correct params", async () => {
+    const serviceSpy = jest.spyOn(electionService, 'perform')
+
+    const createElectionController = await sut.handle({
+      electionStatus: ElectionStatusEnum.OPEN,
+      electionTitleParam: "any_election_title",
+      startDateElectionParam: new Date("2022-06-19"),
+      endDateElectionParam: new Date("2022-06-24") 
+    })
+
+    expect(serviceSpy).toHaveBeenCalledWith({
+      electionStatus: ElectionStatusEnum.OPEN,
+      electionTitleParam: "any_election_title",
+      startDateElectionParam: new Date("2022-06-19"),
+      endDateElectionParam: new Date("2022-06-24") 
+    })
+    expect(serviceSpy).toHaveBeenCalledTimes(1)
+  })
+
   it("should return 200 if perform method succeeds", async () => {
     const createElectionController = await sut.handle({
       electionStatus: ElectionStatusEnum.OPEN,
@@ -31,7 +50,7 @@ describe("Election controller", () => {
       statusCode: 200,
       data: {
         id: expect.any(String),
-        status: 'CREATED',
+        status: 'OPEN',
         title: "any_election_title",
         start: new Date("2022-06-19"),
         end: new Date("2022-06-24"),

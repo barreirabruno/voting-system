@@ -19,7 +19,7 @@ export default class Election {
 
   constructor( electionDataParams: ElectionData ) {
     this.id = randomUUID();
-    this.status = ElectionStatusEnum.CREATED ?? electionDataParams.electionStatus;
+    this.status = electionDataParams.electionStatus ?? ElectionStatusEnum.CREATED;
     this.title = electionDataParams.electionTitleParam;
     this.start = electionDataParams.startDateElectionParam ?? new Date(Date.now());
     this.end = electionDataParams.endDateElectionParam ?? addDaystoDate(5, new Date());

@@ -1,7 +1,7 @@
-import { SaveNewElectionRepoData, SaveNewElectionRepository } from "@/data/contracts/repos/election";
+import { DatabaseElectionRepositoryInterface, LoadElectionsRepoData, SaveNewElectionRepoData } from "@/data/contracts/repos/election";
 import Election from "@/domain/entities/Election.domain";
 
-export class DatabaseElectionRepository implements SaveNewElectionRepository {
+export class DatabaseElectionRepository implements DatabaseElectionRepositoryInterface {
 
   private electionsPersistence: Election[] = []
 
@@ -9,5 +9,11 @@ export class DatabaseElectionRepository implements SaveNewElectionRepository {
     const electionEntity = new Election(input)
     this.electionsPersistence.push(electionEntity);
     return electionEntity
+  }
+
+  async findAll(): Promise<LoadElectionsRepoData.Output> {
+    return {
+      elections: this.electionsPersistence
+    };
   }
 }

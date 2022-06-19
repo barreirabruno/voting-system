@@ -3,6 +3,13 @@ import { ElectionStatusEnum } from "@/domain/entities"
 import { DatabaseElectionRepository } from "@/infra/database/repos/database-election-repo"
 import { CreateElectionController } from "@/application/controllers/election-controller"
 
+const fakeInputData = {
+  electionStatus: ElectionStatusEnum.OPEN,
+  electionTitleParam: "any_election_title",
+  startDateElectionParam: new Date("2022-06-19"),
+  endDateElectionParam: new Date("2022-06-24") 
+}
+
 
 describe("Election controller", () => {
   let saveElectionRepository: DatabaseElectionRepository
@@ -22,29 +29,14 @@ describe("Election controller", () => {
   it("should call ElectionService with correct params", async () => {
     const serviceSpy = jest.spyOn(electionService, 'perform')
 
-    const createElectionController = await sut.handle({
-      electionStatus: ElectionStatusEnum.OPEN,
-      electionTitleParam: "any_election_title",
-      startDateElectionParam: new Date("2022-06-19"),
-      endDateElectionParam: new Date("2022-06-24") 
-    })
+    await sut.handle(fakeInputData)
 
-    expect(serviceSpy).toHaveBeenCalledWith({
-      electionStatus: ElectionStatusEnum.OPEN,
-      electionTitleParam: "any_election_title",
-      startDateElectionParam: new Date("2022-06-19"),
-      endDateElectionParam: new Date("2022-06-24") 
-    })
+    expect(serviceSpy).toHaveBeenCalledWith(fakeInputData)
     expect(serviceSpy).toHaveBeenCalledTimes(1)
   })
 
   it("should return 200 if perform method succeeds", async () => {
-    const createElectionController = await sut.handle({
-      electionStatus: ElectionStatusEnum.OPEN,
-      electionTitleParam: "any_election_title",
-      startDateElectionParam: new Date("2022-06-19"),
-      endDateElectionParam: new Date("2022-06-24") 
-    })
+    const createElectionController = await sut.handle(fakeInputData)
 
     expect(createElectionController).toEqual({
       statusCode: 200,
